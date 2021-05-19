@@ -57,7 +57,19 @@ class MyTodoList extends React.Component {
         completed: false,
       }
     }
-  
+
+    handleStatusChange = (id) => {
+      this.setState((currentState) => {
+        const newArr = [...currentState.tasks]
+        const ind = newArr.findIndex(el => el.id == id)
+        const newStatus = !(newArr[ind].completed)
+        newArr[ind] = { ...newArr[ind], completed:  newStatus} 
+        return {
+          tasks: newArr
+        }
+      })
+    }
+
   hadleChange1 = (event) => {
     const {value} = event.currentTarget
     this.setState({
@@ -101,7 +113,7 @@ class MyTodoList extends React.Component {
         onChange1={this.hadleChange1} onChange2={this.hadleChange2} adding = {this.addtask}
         />
       </div>
-     {this.state.tasks.map(mission => <Task id={mission.id} name={mission.name} description={mission.description} completed={mission.completed}></Task>)}
+     {this.state.tasks.map(mission => <Task id={mission.id} name={mission.name} description={mission.description} completed={mission.completed} HandleClick={this.handleStatusChange}></Task>)}
    </div>
   )
   }
