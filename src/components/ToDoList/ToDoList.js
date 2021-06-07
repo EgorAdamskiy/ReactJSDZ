@@ -1,8 +1,11 @@
-import './ToDoList.css';
+import classnames from "classnames/bind"
 import React from 'react';
 import Task from "../Task/Task"
 import AddTask from "../AddTask/AddTask"
+import { DEFAULT_THEME, ThemeContext } from "./ThemeContext"
 
+import styles from "./ToDoList.module.scss"
+const cx = classnames.bind(styles)
 
 class MyTodoList extends React.Component {
     state = {
@@ -55,7 +58,9 @@ class MyTodoList extends React.Component {
         name: "",
         description: "",
         completed: false,
-      }
+      },
+
+      theme: DEFAULT_THEME
     }
 
     handleStatusChange = (id) => {
@@ -103,17 +108,39 @@ class MyTodoList extends React.Component {
       }
     )
   }
+
+  handleThemeChange = event => {
+    this.setState({ theme: event.target.value })
+  }
+
   render () {
   return(
-   <div >
-      <header ><h1>Твои задания</h1></header>
-      <div className="D">
+   <div className={cx('container', `container-theme-${this.state.theme}`)}>
+          <div className={cx("radios")}>
+            <div>
+              <input type="radio" name="theme" id="light" value="light"
+                checked={this.state.theme === "light"} onChange={this.handleThemeChange}
+              />
+              <label htmlFor="light">light</label>
+            </div>
+
+            <div>
+              <input type="radio" name="theme" id="dark" value="dark"
+                checked={this.state.theme === "dark"} onChange={this.handleThemeChange}
+              />
+              <label htmlFor="dark">dark</label>
+            </div>
+          </div>
+      <header className={cx("header", `header-theme-${this.state.theme}`)}><h1>Твои задания</h1></header>
+      <ThemeContext.Provider value={this.state.theme}>
+      <div className={cx("D", `D-theme-${this.state.theme}`)}>
         <h2>Сделай дело - гуляй смело!</h2>
         <AddTask value1={this.state.newMission.name} value2={this.state.newMission.description} 
         onChange1={this.hadleChange1} onChange2={this.hadleChange2} adding = {this.addtask}
         />
       </div>
      {this.state.tasks.map(mission => <Task id={mission.id} name={mission.name} description={mission.description} completed={mission.completed} HandleClick={this.handleStatusChange}></Task>)}
+     </ThemeContext.Provider>
    </div>
   )
   }

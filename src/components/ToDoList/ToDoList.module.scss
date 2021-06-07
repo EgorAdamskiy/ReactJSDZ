@@ -1,0 +1,46 @@
+.radios {
+  align-self: center;
+}
+
+.header{
+    text-align: center;
+    padding: 25px;
+
+    &-theme-dark {
+      background-color: blueviolet;
+    }
+  
+    &-theme-light {
+      background: cyan;
+    }
+}
+
+
+.D{
+text-align: center;
+padding: 25px;
+
+&-theme-dark {
+  background-color: blue;
+}
+
+&-theme-light {
+  background: yellow;
+}
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    &-theme-dark {
+      background-color: black;
+      color: white;
+    }
+  
+    &-theme-light {
+      background-color: white;
+    }
+  }
