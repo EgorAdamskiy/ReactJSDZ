@@ -1,17 +1,20 @@
 
 import classnames from "classnames/bind"
 import React from 'react';
-import { ThemeContext } from "../ToDoList/ThemeContext"
 import styles from "./DoneButton.module.scss"
+import { connect } from "react-redux";
 const cx = classnames.bind(styles)
 
-function DoneButton({onClick}) {
+
+const mapStateToProps = (state) => ({
+  theme: state.theme.theme,
+});
+
+function donebutton({onClick, theme}) {
   return(
-  <ThemeContext.Consumer>
-        {(theme) =>
           <button className={cx('done', `done-theme-${theme}`)} onClick={onClick}>
             Сделано
-          </button>}
-    </ThemeContext.Consumer>)
-  }
+          </button>
+  )}
+  const DoneButton = connect(mapStateToProps)(donebutton);
   export default DoneButton;

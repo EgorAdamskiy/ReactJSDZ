@@ -1,17 +1,21 @@
 
 import classnames from "classnames/bind"
 import React from 'react';
-import { ThemeContext } from "../ToDoList/ThemeContext"
 import styles from "./NotDoneButton.module.scss"
+import { connect } from "react-redux";
+
 const cx = classnames.bind(styles)
 
-function NotDoneButton({onClick}) {
+
+const mapStateToProps = (state) => ({
+  theme: state.theme.theme,
+});
+
+function notdonebutton({onClick, theme}) {
   return(
-    <ThemeContext.Consumer>
-          {(theme) =>
             <button className={cx('notdone', `notdone-theme-${theme}`)} onClick={onClick}>
               Не Сделано!
-            </button>}
-      </ThemeContext.Consumer>)
+            </button>)
   }
+  const NotDoneButton = connect(mapStateToProps)(notdonebutton);
   export default NotDoneButton;

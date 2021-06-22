@@ -3,13 +3,15 @@ import classnames from "classnames/bind"
 
 import React from 'react';
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-import { ThemeContext } from "../ToDoList/ThemeContext"
 
 import styles from "./Project.module.scss"
 const cx = classnames.bind(styles)
-
-const Project = ({id, name, tasksIds} ) => {
+const mapStateToProps = (state) => ({
+  theme: state.theme.theme,
+});
+const project = ({id, name, tasksIds, theme} ) => {
 
     const Button = (theme) => {
         return (
@@ -19,15 +21,14 @@ const Project = ({id, name, tasksIds} ) => {
     }
 
     return (
-      <ThemeContext.Consumer>
-        {(theme) =>
+
         <div>
           <h3>{name}</h3>
           <h4>Задач: {tasksIds.length}</h4>
           <Button theme={theme}/>
-        </div>}
-      </ThemeContext.Consumer>
+        </div>
     )
   }
   
-export default Project;
+  const Project = connect(mapStateToProps)(project);
+  export default Project;
