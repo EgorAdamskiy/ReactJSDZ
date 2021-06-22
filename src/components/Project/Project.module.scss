@@ -1,0 +1,12 @@
+.project {
+    padding: 10px;
+    margin: 10px;
+    
+    &-theme-dark {
+      background-color: #281f31;
+    }
+  
+    &-theme-light {
+      background-color: #c2d1e5;
+    }
+  }
